@@ -1,0 +1,19 @@
+.wrapper {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+ 
+.verticalContent {
+    position: relative;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0.5rem 0;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    max-height: calc(100vh - 210px);
+}
+

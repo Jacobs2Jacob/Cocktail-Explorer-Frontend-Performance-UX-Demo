@@ -1,0 +1,57 @@
+.container {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.image {
+    width: 100%;
+    max-width: 380px;
+    height: auto; 
+    margin: 0 auto 1.5rem;
+    border-radius: 12px; 
+    display: block; 
+}
+
+ul {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+li {
+    margin-bottom: 0.25rem;
+}
+
+.loading, .error {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+}
+
+.card {
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(to bottom right, #ffffff, #f9f9f9);
+    border-radius: 1.25rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 600px) {
+    .image {
+        max-width: 200px;
+    }
+
+    .container {
+        max-width: unset;
+    }
+}
