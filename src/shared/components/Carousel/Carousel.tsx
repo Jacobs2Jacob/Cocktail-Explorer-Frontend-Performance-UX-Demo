@@ -11,13 +11,15 @@ import CarouselSkeleton from './CarouselSkeleton';
 interface CarouselProps {
     items: CarouselItem[];
     onReachEnd: () => void;
-    loading?: boolean;
+    fetching: boolean;
+    loading: boolean;
     direction?: Direction;
 }
 
 const Carousel = ({
     items,
     onReachEnd,
+    fetching,
     loading,
     direction = 'horizontal'
 }: CarouselProps) => {
@@ -29,11 +31,11 @@ const Carousel = ({
     return (
         <div className={styles.carouselWrapper}>
 
-            {!loading && items.length === 0 && (
+            {!fetching && !loading && items.length === 0 && (
                 <EmptyState message={'No results found...'} />
             )}
 
-            {loading && items.length === 0 && (
+            {loading && (
                 <CarouselSkeleton direction={direction} />
             )}
 
@@ -43,14 +45,14 @@ const Carousel = ({
                         items={items}
                         renderItem={renderItem}
                         onScrollEnd={onReachEnd}
-                        isLoading={loading}
+                        isLoading={fetching}
                     />
                 ) : (
                     <VerticalVirtualizedScroll
                         items={items}
                         renderItem={renderItem}
                         onScrollEnd={onReachEnd}
-                        isLoading={loading}
+                            isLoading={fetching}
                     />
                 )}
             </>} 

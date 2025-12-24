@@ -53,7 +53,8 @@ const CocktailNavigator = (props: CocktailNavigatorProps) => {
                 direction={device === 'desktop' ? 'horizontal' : 'vertical'}
                 items={showingItems}
                 onReachEnd={onReachEndHandler}
-                loading={isInitialLoading || searchLoading || isFetchingNextPage}
+                loading={isInitialLoading}
+                fetching={searchLoading || isFetchingNextPage}
             />
         </div>
     );
