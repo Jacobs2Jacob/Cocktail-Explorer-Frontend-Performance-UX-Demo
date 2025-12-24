@@ -2,11 +2,11 @@
 import styles from './Carousel.module.css';
 import { CarouselItem } from './types';
 import CarouselCard from './CarouselCard'; 
-import Loader from '../Layout/Loader/Loader';
 import { Direction } from '../../types';  
 import HorizontalVirtualizedScroll from '../VirtualizedScrollContainer/horizontal/HorizontalVirtualizedScroll';
 import VerticalVirtualizedScroll from '../VirtualizedScrollContainer/vertical/VerticalVirtualizedScroll';
 import { EmptyState } from '../ErrorStates/EmptyState';
+import CarouselSkeleton from './CarouselSkeleton';
 
 interface CarouselProps {
     items: CarouselItem[];
@@ -34,7 +34,7 @@ const Carousel = ({
             )}
 
             {loading && items.length === 0 && (
-                <Loader />
+                <CarouselSkeleton direction={direction} />
             )}
 
             {items.length > 0 && <>

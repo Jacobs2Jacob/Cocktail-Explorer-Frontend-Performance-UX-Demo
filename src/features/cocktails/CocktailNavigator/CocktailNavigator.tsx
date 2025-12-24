@@ -5,7 +5,7 @@ import { useCocktailQueryByName } from '@/entities/cocktails/hooks/useCocktailQu
 import { mapToCarouselItem } from '@/entities/cocktails/utils/mapToCarouselItem';
 import Carousel from '@/shared/components/Carousel/Carousel';
 import { useDebounce } from '@/shared/hooks/useDebounce';
-import { useDeviceDetection } from '@/shared/hooks/useDeviceDetection';
+import { useDeviceDetection } from '@/shared/hooks/useDeviceDetection'; 
 
 interface CocktailNavigatorProps {
     searchValue: string;
@@ -13,27 +13,27 @@ interface CocktailNavigatorProps {
  
 const CocktailNavigator = (props: CocktailNavigatorProps) => {
     const debouncedQuery = useDebounce(props.searchValue, 250);
+    const device = useDeviceDetection(1200);
 
     const {
         items,
         isFetchingNextPage,
-        fetchNextPage
+        fetchNextPage,
+        isInitialLoading
     } = useCocktailAlphabeticQuery();
 
     const {
         data: searchResults,
         isLoading: searchLoading
     } = useCocktailQueryByName(debouncedQuery);
-
-    const device = useDeviceDetection(1200); 
-      
+       
     // fetching next letter cocktails on scroll end
     const onReachEndHandler = useCallback(async () => {
         if (!debouncedQuery || debouncedQuery === '') {
             await fetchNextPage();
         }
     }, [debouncedQuery, fetchNextPage]);
-      
+     
     const showingItems = useMemo(() => {
         if (debouncedQuery !== '') {
             return searchResults.map(mapToCarouselItem);
@@ -53,7 +53,7 @@ const CocktailNavigator = (props: CocktailNavigatorProps) => {
                 direction={device === 'desktop' ? 'horizontal' : 'vertical'}
                 items={showingItems}
                 onReachEnd={onReachEndHandler}
-                loading={searchLoading || isFetchingNextPage}
+                loading={isInitialLoading || searchLoading || isFetchingNextPage}
             />
         </div>
     );

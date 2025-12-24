@@ -10,6 +10,7 @@ interface UseVirtualizedControllerProps {
     scrollByOffsetSize: (el: HTMLDivElement) => number;
     overscan?: number;
     isLoading?: boolean;
+    scrollEndThresholdItems?: number;
 }
 
 type ScrollDirection = 'backward' | 'forward';
@@ -21,7 +22,8 @@ export const useVirtualizedController = ({
     onScrollEnd,
     onScrollStateChange = () => { },
     scrollByOffsetSize,
-    overscan = 8,
+    overscan = 20,
+    scrollEndThresholdItems = 10,
     isLoading,
 }: UseVirtualizedControllerProps) => {
     const scrollRef = useRef<HTMLDivElement>(null);
@@ -36,16 +38,21 @@ export const useVirtualizedController = ({
 
     // Effect to detect when we've scrolled to the end
     useEffect(() => {
+         
+        // Calculate the index of the final item in the *current* dataset
+        const limitIndex = count - 1;
 
-        const limitIndex = count - 1 - overscan;
+        // Calculate the specific index threshold for triggering the fetch early
+        const triggerIndex = limitIndex - scrollEndThresholdItems;
 
-        if (virtualizer.range && virtualizer.range.endIndex >= limitIndex) {
+        if (virtualizer.range && virtualizer.range.endIndex >= triggerIndex) {
+
             // Only trigger the load if we are not already fetching data
             if (!isLoading) {
                 onScrollEnd();
             }
         }
-    }, [virtualizer.range, count, isLoading, onScrollEnd]);
+    }, [virtualizer.range, count, isLoading, onScrollEnd, scrollEndThresholdItems]);
      
     // Update scroll state (canScrollBack, canScrollForward) for Horizontal Nav
     const updateScrollState = useCallback(() => {
@@ -86,7 +93,7 @@ export const useVirtualizedController = ({
     }, [horizontal, scrollByOffsetSize]
     );
 
-    // manual scroll callback to update scroll state
+    // manual scroll handler to update scroll state
     const handleScroll = useCallback(() => { 
         updateScrollState();
     }, [updateScrollState]);

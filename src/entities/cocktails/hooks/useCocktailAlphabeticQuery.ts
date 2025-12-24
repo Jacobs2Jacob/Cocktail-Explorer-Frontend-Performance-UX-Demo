@@ -28,10 +28,15 @@ export const useCocktailAlphabeticQuery = () => {
             return [...apiCocktails.pages.flatMap(f => f), ...storageCocktails];
         },
     });
-      
+
+    const isInitialLoading =
+        infiniteQuery.isFetching &&
+        infiniteQuery.dataUpdatedAt === 0;
+
     return {
         fetchNextPage: infiniteQuery.fetchNextPage,
         hasNextPage: infiniteQuery.hasNextPage,
+        isInitialLoading,
         isFetchingNextPage: infiniteQuery.isFetchingNextPage,
         isError: infiniteQuery.isError,
         refetch: infiniteQuery.refetch,

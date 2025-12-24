@@ -1,7 +1,8 @@
 import { useMemo, useState, WheelEvent } from 'react';
 import styles from './HorizontalVirtualizedScroll.module.css';
 import { VirtualizedScrollProps } from '../types';
-import { useVirtualizedController } from '../useVirtualizedController';  
+import { useVirtualizedController } from '../useVirtualizedController';
+import { useEffect } from 'react';
 
 interface HorizontalProps<T> extends VirtualizedScrollProps<T> {
     totalRows?: number;
@@ -50,7 +51,13 @@ const HorizontalVirtualizedScroll = <T,>({
         },
         scrollByOffsetSize: (el) => el.offsetWidth,
     });
-     
+
+    // calculate initial scroll state to show the navigation buttons correctly
+    useEffect(() => {
+        handleScroll();
+    }, []);
+
+
     // Handle wheel event to scroll horizontally
     const onWheel = (e: WheelEvent<HTMLDivElement>) => {
         const el = scrollRef.current;

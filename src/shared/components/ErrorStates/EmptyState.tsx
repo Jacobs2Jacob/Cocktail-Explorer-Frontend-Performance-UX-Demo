@@ -5,7 +5,7 @@ interface EmptyStateProps {
 
 export const EmptyState = (props: EmptyStateProps) => {
     return (
-        <div style={{ padding: '1rem' }}>
+        <div style={{ padding: '1rem', margin: 'auto' }}>
             <p>{props.message}</p>
         </div>
     );
