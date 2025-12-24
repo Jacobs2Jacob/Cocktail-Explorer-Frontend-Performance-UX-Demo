@@ -1,4 +1,4 @@
-﻿import React, { useCallback } from 'react';
+﻿import { useCallback } from 'react';
 import styles from './Carousel.module.css';
 import { CarouselItem } from './types';
 import CarouselCard from './CarouselCard'; 
@@ -11,8 +11,7 @@ import CarouselSkeleton from './CarouselSkeleton';
 interface CarouselProps {
     items: CarouselItem[];
     onReachEnd: () => void;
-    fetching: boolean;
-    loading: boolean;
+    fetching: boolean; 
     direction?: Direction;
 }
 
@@ -20,7 +19,6 @@ const Carousel = ({
     items,
     onReachEnd,
     fetching,
-    loading,
     direction = 'horizontal'
 }: CarouselProps) => {
 
@@ -31,11 +29,11 @@ const Carousel = ({
     return (
         <div className={styles.carouselWrapper}>
 
-            {!fetching && !loading && items.length === 0 && (
+            {!fetching && items.length === 0 && (
                 <EmptyState message={'No results found...'} />
             )}
 
-            {loading && (
+            {fetching && items.length === 0 && (
                 <CarouselSkeleton direction={direction} />
             )}
 
@@ -60,4 +58,4 @@ const Carousel = ({
     );
 };
 
-export default React.memo(Carousel);
+export default Carousel;

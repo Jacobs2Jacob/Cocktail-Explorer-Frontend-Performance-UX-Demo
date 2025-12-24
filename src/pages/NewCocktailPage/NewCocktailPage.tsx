@@ -12,9 +12,7 @@ const NewCocktailPage = () => {
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState('');
     const [modalContent, setModalContent] = useState<ReactNode>(null);
-
-    const closeModal = () => setOpen(false);
-    
+     
     const handleOnSubmit = (data: Cocktail) => {
         const addedCocktail = addCocktail(data);
 
@@ -31,7 +29,7 @@ const NewCocktailPage = () => {
                     <button
                         type='button'
                         onClick={() => {
-                            closeModal();
+                            setOpen(false);
                             navigate('/');
                         }}
                         className='btn-blue'
@@ -53,7 +51,7 @@ const NewCocktailPage = () => {
                 > 
                     <button
                         type='button'
-                        onClick={closeModal}
+                        onClick={() => setOpen(false)}
                         className='btn-blue'
                         style={{ marginTop: '15px' }}
                     >

@@ -7,7 +7,7 @@ export const useCocktailQueryByName = (query: string = '') => {
     const {
         data = [],
         isLoading,
-        isError,
+        isError
     } = useQuery<Cocktail[], Error>({
         queryKey: ['search_cocktails', query],
         queryFn: ({ signal }) => {
@@ -23,6 +23,7 @@ export const useCocktailQueryByName = (query: string = '') => {
             // auto memoized by react-query
             return [...apiCocktails, ...storageCocktails];
         },
+        placeholderData: previous => previous,
         enabled: query.trim().length > 0,
     }); 
 

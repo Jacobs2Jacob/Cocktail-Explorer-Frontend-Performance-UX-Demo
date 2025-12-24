@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styles from './CocktailDetailPage.module.css'; 
 import { Cocktail } from '@/entities/cocktails/types'; 
 import { useCocktailById } from '@/entities/cocktails/hooks/useCocktailById';
+import CocktailDetailPageSkeleton from './CocktailDetailPageSkeleton';
 
 const CocktailDetailPage = () => {
     const { id } = useParams();
@@ -21,7 +22,7 @@ const CocktailDetailPage = () => {
 
     // loader indication
     if (isLoading) {
-        return <p className={styles.loading}>Loading cocktail...</p>;
+        return <CocktailDetailPageSkeleton />;
     }
 
     // error indication

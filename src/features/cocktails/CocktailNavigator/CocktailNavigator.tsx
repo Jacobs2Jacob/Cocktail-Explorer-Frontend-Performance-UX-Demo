@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import styles from './CocktailNavigator.module.css';  
 import { useCocktailAlphabeticQuery } from '@/entities/cocktails/hooks/useCocktailAlphabeticQuery';
 import { useCocktailQueryByName } from '@/entities/cocktails/hooks/useCocktailQueryByName';
@@ -53,11 +53,10 @@ const CocktailNavigator = (props: CocktailNavigatorProps) => {
                 direction={device === 'desktop' ? 'horizontal' : 'vertical'}
                 items={showingItems}
                 onReachEnd={onReachEndHandler}
-                loading={isInitialLoading}
-                fetching={searchLoading || isFetchingNextPage}
+                fetching={isInitialLoading || searchLoading || isFetchingNextPage}
             />
         </div>
     );
 };
 
-export default React.memo(CocktailNavigator);
+export default CocktailNavigator;
