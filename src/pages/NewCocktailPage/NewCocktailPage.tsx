@@ -70,7 +70,7 @@ const NewCocktailPage = () => {
             <NewCocktailForm onSubmit={handleOnSubmit} />
             <Modal
                 open={open}
-                onClose={closeModal}
+                onClose={() => setOpen(false)}
                 title={title}>
                 {modalContent}
             </Modal>
