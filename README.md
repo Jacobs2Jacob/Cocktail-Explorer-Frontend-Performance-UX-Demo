@@ -21,6 +21,10 @@ For strong type safety and consistency between client and server models.
 **-Error Handling:**  
 ErrorBoundary for rendering faults fallbacks.  
 Local: try/catch state  
+**-Skeletons:**  
+For loading indications.
+**-Persistent Storage:**  
+For handling user CRUD on client. (unsupported by api).
 **-Context-Api:**  
 For handling theme contexts and other light weight non-frequent updated features.  
 **-Vite:**  
