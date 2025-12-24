@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react'; 
-import { getCocktailById } from '../services/cocktailService';
-import { Cocktail, DataSource } from '../types';
-import { getStorageCocktailById } from '../services/storageCocktailService';
- 
+import { useState, useEffect } from 'react';
+import { Cocktail, DataSource } from '../types'; 
+import { cocktailApi } from '../services/cocktailApi';
+import { utils } from '@/shared/utils';
+
 interface UseCocktailByIdProps {
-  id: string;
-  dataSource?: DataSource;
+    id: string;
+    dataSource?: DataSource;
 }
 
-export const useCocktailById = ({ id, dataSource = 'api' }: UseCocktailByIdProps) => {
+export const useCocktailById = ({ id }: UseCocktailByIdProps) => {
   const [data, setData] = useState<Cocktail | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -20,32 +20,26 @@ export const useCocktailById = ({ id, dataSource = 'api' }: UseCocktailByIdProps
 
   const fetchCocktail = async () => {
       setIsLoading(true);
-      setError(null);
-
-      let cocktail: Cocktail | null = null;
-
-      if (dataSource === 'api') {
-        cocktail = await getCocktailById(id);
-      }
-      else {
-        cocktail = await getStorageCocktailById(id);
-      }
-
-      if (!cocktail) {
-        setError('Failed to fetch cocktail details');
-        setData(null);
-      }
-      else {
-        setData(cocktail);
-      }
-
-      setIsLoading(false);
-  }
-
       
-
+      try {
+          let cocktail = await cocktailApi.getCocktailById(id);
+          setData(cocktail);
+      }
+      catch (err) {
+          utils.handleApiError(err, setError);
+      }
+      finally {
+          setIsLoading(false);
+      } 
+  }
+   
     fetchCocktail();
-  }, [id, dataSource]);
 
-  return { data, isLoading, error };
+  }, [id]);
+
+    return {
+        data,
+        isLoading,
+        error
+    };
 };

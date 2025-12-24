@@ -6,6 +6,7 @@ import Loader from '../Layout/Loader/Loader';
 import { Direction } from '../../types';  
 import HorizontalVirtualizedScroll from '../VirtualizedScrollContainer/horizontal/HorizontalVirtualizedScroll';
 import VerticalVirtualizedScroll from '../VirtualizedScrollContainer/vertical/VerticalVirtualizedScroll';
+import { EmptyState } from '../ErrorStates/EmptyState';
 
 interface CarouselProps {
     items: CarouselItem[];
@@ -24,9 +25,18 @@ const Carousel = ({
     const renderItem = useCallback((item: CarouselItem) => {
         return <CarouselCard key={item.id} item={item} />
     }, []);
-
+      
     return (
         <div className={styles.carouselWrapper}>
+
+            {!loading && items.length === 0 && (
+                <EmptyState message={'No results found...'} />
+            )}
+
+            {loading && items.length === 0 && (
+                <Loader />
+            )}
+
             {items.length > 0 && <>
                 {direction === 'horizontal' ? (
                     <HorizontalVirtualizedScroll
@@ -42,15 +52,7 @@ const Carousel = ({
                         onScrollEnd={onReachEnd}
                     />
                 )}
-            </>}
-             
-            {!loading && items.length === 0 && (
-                <p className={styles.loading}>No Results Found...</p>
-            )}
-
-            {loading && items.length === 0 && (
-                <Loader />
-            )}
+            </>} 
         </div>
     );
 };

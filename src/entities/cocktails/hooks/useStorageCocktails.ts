@@ -1,36 +1,40 @@
-import { useEffect, useState } from 'react';  
-import { addStorageCocktail, getStorageCocktails } from '../services/storageCocktailService';
+import { useState } from 'react';   
 import { Cocktail } from '../types';
+import { storageCocktailService } from '../services/storageCocktailService';
+import { utils } from '@/shared/utils';
 
-export const useStorageCocktails = () => {
-    const [cocktails, setCocktails] = useState<Cocktail[]>([]);
+export const useStorageCocktails = () => { 
     const [isLoading, setIsLoading] = useState(false);
-
-    // Load cocktails from storage on mount
-    useEffect(() => {
-        const storedCocktails = getStorageCocktails();
-        setCocktails(storedCocktails);
-    }, []);
-
+    const [error, setError] = useState<string | null>(null);
+     
     // Add cocktail and update state
     const addCocktail = (cocktail: Cocktail): boolean => {
 
-        setIsLoading(true);
-        const storageCocktail = addStorageCocktail(cocktail);
+        try {
+            setIsLoading(true);
+            const storageCocktail = storageCocktailService.addStorageCocktail(cocktail);
 
-        if (storageCocktail) {
-            const updated = getStorageCocktails();
-            setCocktails(updated);
-            return true;
+            if (storageCocktail) {
+                const updated = storageCocktailService.getStorageCocktails(); 
+
+                if (updated) {
+                    return true;
+                }
+            }
+        }
+        catch (error) {
+            utils.handleApiError(error, setError);
+        }
+        finally {
+            setIsLoading(false);
         }
 
-        setIsLoading(false);
         return false;
     }
 
     return {
-        cocktails,
         addCocktail,
-        isLoading
+        isLoading,
+        error
     };
 };

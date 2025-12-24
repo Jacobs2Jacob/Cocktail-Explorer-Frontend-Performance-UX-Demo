@@ -1,10 +1,10 @@
-import styles from './NewCocktailPage.module.css';
-import { useStorageCocktails } from '@/entities/cocktails/hooks/useStorageCocktails';
+import styles from './NewCocktailPage.module.css'; 
 import NewCocktailForm from '@/features/cocktails/NewCocktailForm/NewCocktailForm';
 import { Cocktail } from '@/entities/cocktails/types';   
 import { useNavigate } from 'react-router-dom'; 
 import { ReactNode, useState } from 'react';
 import Modal from '@/shared/components/Modal/Modal';
+import { useStorageCocktails } from '@/entities/cocktails/hooks/useStorageCocktails';
 
 const NewCocktailPage = () => {
     const { addCocktail } = useStorageCocktails();  

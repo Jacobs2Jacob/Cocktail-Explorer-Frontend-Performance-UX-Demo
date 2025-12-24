@@ -1,11 +1,11 @@
-import { useCallback, useEffect, useRef } from 'react';
+﻿import { useCallback, useRef } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual'; 
 
 interface UseVirtualizedControllerProps {
     count: number;
     estimateSize: number;
     horizontal: boolean;
-    onScrollEnd: () => void;
+    onScrollEnd: () => void; 
     onScrollStateChange?: (canScrollBack: boolean, canScrollForward: boolean) => void;
     scrollByOffsetSize: (el: HTMLDivElement) => number;
     overscan?: number;
@@ -20,10 +20,10 @@ export const useVirtualizedController = ({
     onScrollEnd,
     onScrollStateChange = () => {},
     scrollByOffsetSize,
-    overscan = horizontal ? 2 : 3,
+    overscan = 1,
 }: UseVirtualizedControllerProps) => {
     const scrollRef = useRef<HTMLDivElement>(null);
-    const hasReachedEnd = useRef(false);
+    const hasReachedEnd = useRef(0);
 
     const virtualizer = useVirtualizer({
         count,
@@ -33,27 +33,27 @@ export const useVirtualizedController = ({
         overscan,
     });
 
-    // Trigger onScrollEnd when the end is reached
+    const lastTriggeredLengthRef = useRef(0);
+
     const triggerOnReachEnd = useCallback(() => {
         const virtualItems = virtualizer.getVirtualItems();
+        if (!virtualItems.length) return;
 
-        if (!virtualItems.length) {
-            return;
-        }
+        const last = virtualItems[virtualItems.length - 1];
 
-        const lastIndex = virtualItems[virtualItems.length - 1].index;
-        const limit = count - 1;
+        // "close to end" based on your current loaded items
+        const closeToEnd = last.index >= virtualItems.length - 1 - overscan;
 
-        if (lastIndex >= limit && !hasReachedEnd.current) {
-            hasReachedEnd.current = true;
+        // only fire once per items.length
+        if (closeToEnd && lastTriggeredLengthRef.current !== virtualItems.length) {
+            lastTriggeredLengthRef.current = virtualItems.length;
             onScrollEnd();
-        } else if (lastIndex < limit) {
-            hasReachedEnd.current = false;
         }
-    }, [virtualizer, count, onScrollEnd]);
+    }, [virtualizer, overscan, onScrollEnd]);
 
-    // Update scroll state (canScrollBack, canScrollForward)
+    // Update scroll state (canScrollBack, canScrollForward) for Horizontal Nav
     const updateScrollState = useCallback(() => {
+         
         const el = scrollRef.current;
 
         if (!el) {
@@ -68,11 +68,12 @@ export const useVirtualizedController = ({
         const canScrollBack = scrollPos > 1;
         const canScrollForward = scrollPos < maxScroll - 1;
 
-        onScrollStateChange(canScrollBack, canScrollForward);
+        onScrollStateChange(canScrollBack, canScrollForward); 
     }, [horizontal, onScrollStateChange]);
-     
-    const scrollByOffset = useCallback(
-        (direction: ScrollDirection) => {
+
+    // Manual Scrolling
+    const scrollByOffset = useCallback((direction: ScrollDirection) => {
+
             const el = scrollRef.current;
 
             if (!el) {
@@ -86,14 +87,9 @@ export const useVirtualizedController = ({
                 [horizontal ? 'left' : 'top']: target,
                 behavior: 'smooth',
             });
-        },
-        [horizontal, scrollByOffsetSize]
+        }, [horizontal, scrollByOffsetSize]
     );
-
-    useEffect(() => {
-        updateScrollState();
-    }, [count, updateScrollState]);
-
+     
     const handleScroll = useCallback(() => {
         triggerOnReachEnd();
         updateScrollState();

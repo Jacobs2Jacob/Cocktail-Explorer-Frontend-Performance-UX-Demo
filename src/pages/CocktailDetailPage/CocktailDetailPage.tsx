@@ -7,7 +7,11 @@ import { useCocktailById } from '@/entities/cocktails/hooks/useCocktailById';
 const CocktailDetailPage = () => {
     const { id } = useParams();
     const [cocktail, setCocktail] = useState<Cocktail>();
-    const { data, error, isLoading } = useCocktailById({ id: id ?? '', dataSource: id?.includes('user-') ? 'storage' : 'api' });
+    const {
+        data,
+        error,
+        isLoading
+    } = useCocktailById({ id: id ?? '', dataSource: id?.startsWith('user-') ? 'storage' : 'api' });
 
     useEffect(() => {
         if (data) {

@@ -21,6 +21,8 @@ const HorizontalVirtualizedScroll = <T,>({
 }: HorizontalProps<T>) => {
     const [canScrollBack, setCanScrollBack] = useState(false);
     const [canScrollForward, setCanScrollForward] = useState(false);
+    const showLeft = canScrollBack || showNavWhileLoading;
+    const showRight = canScrollForward || showNavWhileLoading;
 
     // Group items into columns based on totalRows
     const columns = useMemo(() => {
@@ -50,10 +52,7 @@ const HorizontalVirtualizedScroll = <T,>({
         },
         scrollByOffsetSize: (el) => el.offsetWidth,
     });
-
-    const showLeft = canScrollBack || showNavWhileLoading;
-    const showRight = canScrollForward || showNavWhileLoading;
-
+     
     // Handle wheel event to scroll horizontally
     const onWheel = (e: WheelEvent<HTMLDivElement>) => {
         const el = scrollRef.current;

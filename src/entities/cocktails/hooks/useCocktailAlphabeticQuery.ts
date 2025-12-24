@@ -1,70 +1,40 @@
-import { useState, useCallback, useEffect } from 'react';
-import { queryClient } from '@/app/providers/ReactQueryProvider';
-import { getCocktailsByFirstLetter } from '../services/cocktailService';
-import { Cocktail } from '../types'; 
-import { getStorageCocktailsByFirstLetter } from '../services/storageCocktailService';
+import { Cocktail } from '../types';  
+import { cocktailApi } from '../services/cocktailApi';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { storageCocktailService } from '../services/storageCocktailService';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz';
 
-export const useCocktailAlphabeticQuery = (loadAll: boolean) => {
-    const [items, setItems] = useState<Cocktail[]>([]);
-    const [letterIndex, setLetterIndex] = useState(0);
-    const [loading, setLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
-     
-    const loadNext = useCallback(async (specificLetterIndex: number) => {
+export const useCocktailAlphabeticQuery = () => {  
 
-        // loading or end of the list
-        if (loading || letterIndex >= ALPHABET.length) {
-            setHasMore(false);
-            return;
-        }
+    const infiniteQuery = useInfiniteQuery<Cocktail[], Error, Cocktail[]>({
+        queryKey: ['cocktails'],
+        queryFn: async ({ pageParam = ALPHABET[0] }) => {
+            return await cocktailApi.getCocktailsByFirstLetter(pageParam as string);
+        },
+        getNextPageParam: (_, allPages) => {
+            const nextIndex = allPages.length;
+            return nextIndex >= ALPHABET.length
+                ? undefined
+                : ALPHABET[nextIndex]
+        },
+        initialPageParam: ALPHABET[0],
+        select: (apiCocktails) => {
+            const nextIndex = apiCocktails.pages.length;
+            const storageCocktails = storageCocktailService
+                .getStorageCocktailsByFirstLetter(ALPHABET[nextIndex]);
 
-        setLoading(true);
-        const letter = ALPHABET[specificLetterIndex ?? letterIndex];
-
-        const apiCocktails = await queryClient.fetchQuery({
-            queryKey: ['cocktailsByFirstLetter', letter],
-            queryFn: () => getCocktailsByFirstLetter(letter),
-            staleTime: 1000 * 60 * 10, // 10 min relevance,
-            gcTime: 1000 * 60 * 10,  // 10 min cache,
-        });
-
-        const storageCocktails = getStorageCocktailsByFirstLetter(letter) || [];
-        const mergedCocktails = [...apiCocktails, ...storageCocktails];
-
-        setItems((prev) => { 
-            return [...prev, ...mergedCocktails];
-        });
-
-        // increment letter
-        setLetterIndex((prev) => prev + 1);
-        setLoading(false);
-    }, [loading, letterIndex]);
-
-    useEffect(() => {
-        if (!loadAll) {
-            return;
-        }
-
-        const loadAllData = async () => {
-            let index = letterIndex;
-
-            while (index < ALPHABET.length) {
-                await loadNext(index);
-                index++;
-            }
-
-            setHasMore(false);
-        };
-
-        loadAllData();
-    }, [loadAll]);
-
+            // auto memoized by react-query
+            return [...apiCocktails.pages.flatMap(f => f), ...storageCocktails];
+        },
+    });
+      
     return {
-        items,
-        hasMore,
-        loadNext,
-        loading,
+        fetchNextPage: infiniteQuery.fetchNextPage,
+        hasNextPage: infiniteQuery.hasNextPage,
+        isFetchingNextPage: infiniteQuery.isFetchingNextPage,
+        isError: infiniteQuery.isError,
+        refetch: infiniteQuery.refetch,
+        items: infiniteQuery.data ?? [],
     };
 };

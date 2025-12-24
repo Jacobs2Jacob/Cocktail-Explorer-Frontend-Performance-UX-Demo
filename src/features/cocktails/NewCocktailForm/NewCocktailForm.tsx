@@ -4,7 +4,7 @@ import styles from './NewCocktailForm.module.css';
 import { Cocktail } from '@/entities/cocktails/types';
 import TextAreaInput from '@/shared/components/Inputs/TextAreaInput/TextAreaInput';
 import TextInput from '@/shared/components/Inputs/TextInput/TextInput';
-import { validateAndReadImage } from '@/shared/utils/imageUtils';
+import { utils } from '@/shared/utils';
 
 interface NewCocktailFormProps {
     onSubmit: (data: Cocktail) => void;
@@ -55,7 +55,7 @@ const NewCocktailForm = (props: NewCocktailFormProps) => {
             return;
         }
 
-        validateAndReadImage(file, {
+        utils.validateAndReadImage(file, {
             onSuccess: (base64) => setValue('image', base64, { shouldValidate: true }),
             onError: (msg) => setImageError(msg),
         });
