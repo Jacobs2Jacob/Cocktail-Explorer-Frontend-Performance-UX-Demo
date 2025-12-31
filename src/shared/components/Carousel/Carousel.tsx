@@ -33,7 +33,7 @@ const Carousel = ({
                 <EmptyState message={'No results found...'} />
             )}
 
-            {fetching && items.length === 0 && (
+            {fetching && (
                 <CarouselSkeleton direction={direction} />
             )}
 

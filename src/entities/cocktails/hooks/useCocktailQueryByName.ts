@@ -23,7 +23,7 @@ export const useCocktailQueryByName = (query: string = '') => {
             // auto memoized by react-query
             return [...apiCocktails, ...storageCocktails];
         },
-        placeholderData: previous => previous,
+        //placeholderData: previous => previous,
         enabled: query.trim().length > 0,
     }); 
 
