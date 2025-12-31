@@ -52,10 +52,10 @@ const HorizontalVirtualizedScroll = <T,>({
         scrollByOffsetSize: (el) => el.offsetWidth,
     });
 
-    // calculate initial scroll state to show the navigation buttons correctly
+    // Initial scroll state update
     useEffect(() => {
         handleScroll();
-    }, []);
+    }, [items]);
 
 
     // Handle wheel event to scroll horizontally
