@@ -1,7 +1,9 @@
+Live demo hosted at https://yanivjacob.com as a frontend showcase.  
+  
 **To Execute:**  
 -Run npm install.  
 -Run the app with npm run dev.  
-
+  
 **Short Brief**
 SPA, Responsive, flex and smooth UI, using React and Typescript for exploring, creating and searching cocktails in a dynamic-responsive scrolling behaviour.
   
