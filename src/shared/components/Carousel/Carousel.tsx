@@ -33,7 +33,8 @@ const Carousel = ({
                 <EmptyState message={'No results found...'} />
             )}
 
-            {fetching && (
+            {/* Item.length === 0 so it would be seen on search and not on navigation */}
+            {fetching && items.length === 0 && (
                 <CarouselSkeleton direction={direction} />
             )}
 

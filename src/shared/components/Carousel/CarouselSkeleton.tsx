@@ -17,8 +17,7 @@ const CarouselSkeleton = ({ direction }: CarouselSkeletonProps) => {
         Math.floor((width || 0) / MIN_CARD_WIDTH)
     );
 
-    const baseWidth =
-        width || (typeof window !== 'undefined' ? window.innerWidth : 1200);
+    const baseWidth = width || (typeof window !== 'undefined' ? window.innerWidth : 1200);
 
     const minColumnWidth = 220;
     const horizontalColumns = Math.max(
