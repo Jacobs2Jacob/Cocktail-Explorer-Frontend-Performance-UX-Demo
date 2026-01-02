@@ -1,39 +1,61 @@
 Live demo hosted at https://yanivjacob.com as a frontend showcase.  
   
 **To Execute:**  
--Run npm install.  
--Run the app with npm run dev.  
+	•	Run npm install  
+	•	Run the app with npm run dev  
   
-**Short Brief**
-SPA, Responsive, flex and smooth UI, using React and Typescript for exploring, creating and searching cocktails in a dynamic-responsive scrolling behaviour.
+**Short Brief**  
+A responsive Single Page Application built with React and TypeScript, designed to explore, create, and search cocktails through a smooth, performance-focused UI.  
+  
+The application emphasizes responsive layouts, dynamic scrolling behavior, efficient rendering of large datasets, and consistent UX feedback across loading, error, and interaction states.    
+The domain was intentionally kept simple to highlight frontend execution quality, performance, and usability rather than product complexity.  
   
 **Architectural Decisions**  
-**-FSD:**  
-A common and scalable approach that isolates feature components from shared components (reusable across multiple features).  
-**-Smart Routes:**  
-For supporting future route based components and better scalability.  
-**-Virtualization:**  
-Using React-Virtual lib to achieve Horizontal and Vertical virtualizations, Handling heavy items.  
-**-React Hook Form:**  
-For a more maintainable and performant form experience with built-in validation.  
-**-CSS Modules:**  
-For scoped, maintainable styling.  
-**-TypeScript:**  
-For strong type safety and consistency between client and server models.  
-**-Error Handling:**  
-ErrorBoundary for rendering faults fallbacks.  
-Local: try/catch state  
-**-Skeletons:**  
-For loading indications.  
-**-Persistent Storage:**  
-For handling user CRUD on client. (unsupported by api).  
-**-Context-Api:**  
-For handling theme contexts and other light weight non-frequent updated features.  
-**-Vite:**  
-For configuration simplicity, fast dev server and modern codebase.  
   
-**React Patterns used in this app:**  
+**-FSD (Feature-Sliced Design):**  
+A scalable and maintainable architecture that clearly separates feature-level components from shared and reusable UI elements, enabling predictable growth and long-term maintainability.  
+  
+**-Smart Routes:**  
+Prepared infrastructure for future route-based feature expansion, improving scalability and separation of concerns.  
+  
+**-Virtualization:**  
+Implemented using react-virtual to support both horizontal and vertical virtualization, enabling efficient rendering and interaction with heavy UI lists while minimizing unnecessary DOM work.  
+  
+**-React Hook Form:**  
+Chosen for a maintainable and performant form experience with built-in validation, minimizing re-renders and improving user feedback during interactions.  
+  
+**-CSS Modules:**  
+Scoped and maintainable styling approach, ensuring predictable UI behavior and avoiding global style collisions.  
+  
+**-TypeScript:**  
+Strong type safety across the application, improving consistency, reliability, and developer experience.  
+  
+**-Error Handling:**  
+	•	ErrorBoundary for graceful UI fallbacks on rendering failures
+	•	Local try/catch handling for async and state-level error management
+  
+**-Skeletons:**  
+Used as loading indicators to improve perceived performance and maintain visual continuity during async operations.  
+  
+**-Persistent Storage:**  
+Client-side persistence to support user CRUD flows (API limitations acknowledged), enabling uninterrupted UX scenarios.  
+  
+**-Context API:**
+Used selectively for theme management and other low-frequency, non-performance-critical state.  
+  
+**-Vite:**
+Provides fast development feedback, minimal configuration, and a modern frontend tooling setup.  
+  
+React Patterns used in this app:**  
+  
 **-Custom Hooks**  
-**-Compounds**  
-**-Feature and Reusable components**  
-**-Layout Pattern** with one parent for both child to reduce loading times on unmount and hold the shared data in parent
+Encapsulating reusable logic and side effects to improve readability and composability.  
+  
+**-Compound Components**  
+Enabling flexible, expressive component APIs while maintaining internal state cohesion.  
+  
+**-Feature and Reusable Components**  
+Clear separation between domain-specific features and shared UI primitives.  
+  
+**-Layout Pattern**  
+A shared parent layout for sibling components to reduce unnecessary unmounts, preserve shared data, and minimize loading transitions for smoother UX.
