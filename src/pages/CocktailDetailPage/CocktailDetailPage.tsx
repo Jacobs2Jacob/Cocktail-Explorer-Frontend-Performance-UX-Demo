@@ -3,13 +3,17 @@ import { useParams } from 'react-router-dom';
 import styles from './CocktailDetailPage.module.css'; 
 import { Cocktail } from '@/entities/cocktails/types'; 
 import { useCocktailById } from '@/entities/cocktails/hooks/useCocktailById'; 
+import { EmptyState } from '../../shared/components/ErrorStates/EmptyState';
+import Loader from '../../shared/components/Layout/Loader/Loader';
+import { ErrorState } from '../../shared/components/ErrorStates/ErrorState';
 
 const CocktailDetailPage = () => {
     const { id } = useParams();
     const [cocktail, setCocktail] = useState<Cocktail>();
     const {
         data,
-        error, 
+        error,
+        isLoading
     } = useCocktailById({ id: id ?? '', dataSource: id?.startsWith('user-') ? 'storage' : 'api' });
 
     useEffect(() => {
@@ -17,10 +21,20 @@ const CocktailDetailPage = () => {
             setCocktail(data);
         }
     }, [data])
-      
-    // error indication
+     
+    // loading indication
+    if (isLoading) {
+        return <Loader />;
+    }
+
+    // empty indication
+    if (!data) {
+        return <EmptyState message={'Cocktail was not found..'} />;
+    }
+
+    // loading indication
     if (error) {
-        return <p className={styles.error}>Cocktail not found.</p>;
+        return <ErrorState message={'Could not retrieve Cocktail'} />;
     }
 
     return (

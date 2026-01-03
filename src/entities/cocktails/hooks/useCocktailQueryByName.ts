@@ -8,7 +8,7 @@ export const useCocktailQueryByName = (query: string = '') => {
         data = [],
         isLoading,
         isError
-    } = useQuery<Cocktail[], Error>({
+    } = useQuery<Cocktail[]>({
         queryKey: ['search_cocktails', query],
         queryFn: ({ signal }) => {
             return cocktailApi.searchCocktails(query, signal);
