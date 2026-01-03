@@ -2,7 +2,17 @@
   "platform": {
     "apiRuntime": "node:18"
   },
-  "navigationFallback": {
-    "rewrite": "/index.html"
+    "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/assets/*",
+      "/static/*",
+      "/*.css",
+      "/*.js",
+      "/*.ico",
+      "/*.png",
+      "/*.svg",
+      "/*.json"
+    ]
   }
 }
