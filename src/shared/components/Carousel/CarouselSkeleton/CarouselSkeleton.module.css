@@ -1,23 +1,7 @@
-.carouselWrapper {
+ 
+.skeletonCard {
     position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    overflow: hidden;
-    padding: 0 2rem;
-    box-sizing: border-box;
-}
-
-.carousel {
-    display: flex;
-    gap: 1rem;
-    overflow: hidden;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    padding: 1rem 0;
-}
-
-.card {
+    pointer-events: none;
     cursor: pointer;
     flex: 0 0 auto;
     width: 245px;
@@ -30,46 +14,7 @@
     padding: 0.5rem;
     transition: transform 0.2s;
 }
-
-    .card:hover {
-        transform: scale(1.05);
-    }
-
-.label {
-    margin-top: 1.5rem;
-    font-size: 0.95rem;
-    font-weight: 500;
-}
-
-.image {
-    height: 260px;
-    width: 100%;
-    border-radius: 4px;
-}
-
-.navButton {
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    padding: 0 0.5rem;
-    color: #333;
-    user-select: none;
-    transition: color 0.2s;
-}
-
-    .navButton:hover {
-        color: #0070f3;
-    }
-
-.loading {
-    width: 100%;
-    text-align: center;
-    margin-top: 1rem;
-    font-size: 1rem;
-    color: #666;
-}
-
+ 
 .skeletonRow {
     width: 100%;
     box-sizing: border-box;
@@ -84,6 +29,8 @@
     column-gap: 4rem;
     row-gap: 1rem;
     overflow: hidden;
+    margin-left: 3rem;
+    margin-top: 0.5rem;
 }
 
 /* Total columns calculated at runtime */
@@ -93,15 +40,9 @@
     row-gap: 1rem;
     align-items: flex-start;
     padding: 0 0.25rem;
-    margin: auto;
+    margin-top: 2rem;
 }
-
-.skeletonCard {
-    position: relative;
-    pointer-events: none;
-    margin: 12.5px auto 12.5px auto;
-}
-
+  
 .skeletonImage,
 .skeletonLabel {
     background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 37%, #f5f5f5 63%);
@@ -134,18 +75,12 @@
 /* === MOBILE: vertical scroll === */
 @media (max-width: 1200px) {
 
-    .card {
+    .skeletonCard {
         width: 170px;
         height: 225px;
-        margin: auto;
+        margin: 5px auto 5px auto;
     }
-
-    .image {
-        height: 140px;
-        width: 100%;
-        border-radius: 4px;
-    }
-
+     
     .skeletonImage {
         height: 140px;
     }

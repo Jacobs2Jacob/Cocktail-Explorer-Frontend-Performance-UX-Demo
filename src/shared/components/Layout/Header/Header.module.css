@@ -2,13 +2,15 @@
     position: relative;
     background-color: #472884;
     padding: 0.5rem;
-    color: white;
+    color: white; 
+    height: 3.6rem;
 }
 
 .container {
     display: flex;
     align-items: center;
     gap: 1rem;
+    height: 2.7rem;
 } 
 
 .title {
@@ -26,9 +28,9 @@
 
     .title.longTitle {
         display: block;
-    } 
-   
-@media (max-width: 700px) {  
+    }
+     
+@media (max-width: 768px) {  
     .title {
         font-size: 1rem;
         font-weight: 600;

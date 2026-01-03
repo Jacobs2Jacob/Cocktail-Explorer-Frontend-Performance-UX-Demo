@@ -1,6 +1,6 @@
-import styles from './Carousel.module.css';
-import { Direction } from '../../types';
-import { useContainerWidth } from '../../hooks/useContainerWidth';
+import styles from './CarouselSkeleton.module.css';
+import { Direction } from '@/shared/types';
+import { useContainerWidth } from '@/shared/hooks/useContainerWidth';
 import clsx from 'clsx';
 
 const MIN_CARD_WIDTH = 180;
@@ -45,8 +45,7 @@ const CarouselSkeleton = ({ direction }: CarouselSkeletonProps) => {
             {Array.from({ length: skeletonCount }).map((_, index) => (
                 <div
                     key={`carousel-skeleton-${index}`}
-                    className={clsx(styles.card, styles.skeletonCard)}
-                >
+                    className={styles.skeletonCard}>
                     <div className={styles.skeletonImage} />
                     <div className={styles.skeletonLabel} />
                 </div>

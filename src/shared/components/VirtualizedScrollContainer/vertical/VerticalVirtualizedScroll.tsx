@@ -19,7 +19,7 @@ const VerticalVirtualizedScroll = <T,>({
     const { containerRef, width: containerWidth } = useContainerWidth(); 
     const itemsPerRow = Math.max(1, Math.floor(containerWidth / MIN_ITEM_WIDTH));
 
-    // Group items into rows based on itemsPerRow
+    // Group items into rows  based on virtualization one dimentional requirements
     const rows = useMemo(() => {
         const grouped: T[][] = [];
 

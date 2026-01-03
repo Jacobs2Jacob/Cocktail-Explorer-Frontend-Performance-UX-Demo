@@ -22,7 +22,7 @@ const HorizontalVirtualizedScroll = <T,>({
     const [canScrollBack, setCanScrollBack] = useState(false);
     const [canScrollForward, setCanScrollForward] = useState(false);
      
-    // Group items into columns based on totalRows
+    // Group items into columns based on virtualization one dimentional requirements
     const columns = useMemo(() => {
         const grouped: T[][] = [];
 

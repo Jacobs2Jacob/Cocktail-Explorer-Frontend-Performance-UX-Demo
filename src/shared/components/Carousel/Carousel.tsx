@@ -6,7 +6,7 @@ import { Direction } from '../../types';
 import HorizontalVirtualizedScroll from '../VirtualizedScrollContainer/horizontal/HorizontalVirtualizedScroll';
 import VerticalVirtualizedScroll from '../VirtualizedScrollContainer/vertical/VerticalVirtualizedScroll';
 import { EmptyState } from '../ErrorStates/EmptyState';
-import CarouselSkeleton from './CarouselSkeleton';
+import CarouselSkeleton from './CarouselSkeleton/CarouselSkeleton';
 import Loader from '../Layout/Loader/Loader';
 
 interface CarouselProps {

@@ -94,14 +94,4 @@ input, button, textarea, select {
 .mb-2 {
     margin-bottom: 0.5rem;
 }
-
-/* Mobile Adjustments */
-@media (max-width: 768px) {
-    html {
-        font-size: 90%;
-    }
-
-    .container {
-        padding: 0 0.75rem;
-    }
-}
+ 
