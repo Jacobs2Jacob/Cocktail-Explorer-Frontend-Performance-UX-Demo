@@ -50,6 +50,8 @@ li {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+    margin: auto 0 auto 50%;
+    transform: translateX(-50%);
 }
 
 .skeletonShimmer {
