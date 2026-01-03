@@ -17,7 +17,6 @@ const AppRoutes = () => (
                     <Route index element={<HomePage />} />
                     <Route path="cocktail/:id" element={<CocktailDetailPage />} />
                     <Route path="cocktail/new" element={<NewCocktailPage />} />
-                    <Route path="*" element={<HomePage />} />
                 </Route>
             </Routes>
         </Suspense>
