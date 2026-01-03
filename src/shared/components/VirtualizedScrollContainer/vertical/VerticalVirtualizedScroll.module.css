@@ -17,3 +17,10 @@
     max-height: calc(100vh - 210px);
 }
 
+.itemContainer {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+    gap: 10px; 
+} 

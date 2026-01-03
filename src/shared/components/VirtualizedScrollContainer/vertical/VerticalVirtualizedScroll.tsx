@@ -61,16 +61,10 @@ const VerticalVirtualizedScroll = <T,>({
                     {virtualizer.getVirtualItems().map((virtualRow) => (
                         <div data-index={virtualRow.index}
                              key={virtualRow.key}
-                             style={{
-                                position: 'absolute',
-                                top: virtualRow.start,
-                                left: 0,
-                                width: '100%',
-                                height: virtualRow.size,
-                                display: 'flex',
-                                justifyContent: 'center',
-                                gap: '10px',
-                                boxSizing: 'border-box',
+                             className={styles.itemContainer}
+                             style={{ 
+                                top: virtualRow.start,  
+                                height: virtualRow.size
                              }}>
                             {rows[virtualRow.index].map((item, idx) =>
                                 renderItem(item, virtualRow.index * itemsPerRow + idx)

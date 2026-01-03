@@ -6,9 +6,9 @@ type ModalProps = {
     onClose: () => void;
     title?: string;
     children: React.ReactNode;
-};
+} & React.HTMLAttributes<HTMLDivElement>
 
-const Modal = ({ open, onClose, title, children }: ModalProps) => {
+const Modal = ({ open, onClose, title, children, ...props }: ModalProps) => {
 
     const modalRoot = document.getElementById('modal-root')!;
      
@@ -18,7 +18,7 @@ const Modal = ({ open, onClose, title, children }: ModalProps) => {
 
     const modalContent = (
         <div className={styles.backdrop} onClick={onClose} aria-modal="true" role="dialog">
-            <div className={styles.panel} onClick={(e) => e.stopPropagation()}>
+            <div {...props} className={styles.panel} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.header}>
                     <h2 className={styles.title}>{title ?? 'Modal'}</h2>
                     <label onClick={onClose} aria-label="Close" className={styles.close}>

@@ -33,6 +33,13 @@ const Header = () => {
         }
     };
 
+    // TODO: change to pure CSS media styling
+    const modalProps = {
+        style: {
+            height: device === 'desktop' ? '85vh' : '70vh',
+            width: device === 'desktop' ? '50vw' : '95vw',
+        }
+    };
 
     return (
         <>
@@ -46,6 +53,7 @@ const Header = () => {
             </nav>
 
             <Modal
+                {...modalProps}
                 open={aboutOpen}
                 onClose={() => setAboutOpen(false)}
                 title={'About'}>

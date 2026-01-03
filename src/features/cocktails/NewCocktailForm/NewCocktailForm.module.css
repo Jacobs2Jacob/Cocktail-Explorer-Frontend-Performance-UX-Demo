@@ -40,12 +40,7 @@ textarea {
 
     .form {
         padding: 1rem;
-    }
-
-    button[type='submit'],
-    button[type='button'] {
-        width: 100%;
-    }
+    } 
 }
 
 /* Preview uploaded image */

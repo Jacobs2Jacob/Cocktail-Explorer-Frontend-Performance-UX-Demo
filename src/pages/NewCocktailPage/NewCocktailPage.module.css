@@ -13,3 +13,11 @@ h1 {
     font-size: 2rem;
     text-align: center;
 }
+
+.modalBtn {
+    position: absolute;
+    bottom: 0rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+} 

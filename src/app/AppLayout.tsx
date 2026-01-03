@@ -5,11 +5,16 @@ import { Footer } from '../shared/components/Layout/Footer/Footer';
 const AppLayout = () => {
      
     return (
-        <>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '100vh',
+            justifyContent: 'space-between'
+        }}>
             <Header />
             <Outlet />
             <Footer />
-        </>
+        </div>
     );
 };
 
