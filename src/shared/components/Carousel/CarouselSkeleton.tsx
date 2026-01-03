@@ -1,6 +1,7 @@
 import styles from './Carousel.module.css';
 import { Direction } from '../../types';
 import { useContainerWidth } from '../../hooks/useContainerWidth';
+import clsx from 'clsx';
 
 const MIN_CARD_WIDTH = 180;
 const HORIZONTAL_ROWS = 2;
@@ -36,16 +37,15 @@ const CarouselSkeleton = ({ direction }: CarouselSkeletonProps) => {
     return (
         <div
             ref={containerRef}
-            className={`${styles.skeletonRow} ${direction === 'horizontal'
+            className={clsx(styles.skeletonRow, direction === 'horizontal'
                     ? styles.horizontalSkeleton
-                    : styles.verticalSkeleton
-                }`}
+                    : styles.verticalSkeleton)}
             style={gridStyle}
         >
             {Array.from({ length: skeletonCount }).map((_, index) => (
                 <div
                     key={`carousel-skeleton-${index}`}
-                    className={`${styles.card} ${styles.skeletonCard}`}
+                    className={clsx(styles.card, styles.skeletonCard)}
                 >
                     <div className={styles.skeletonImage} />
                     <div className={styles.skeletonLabel} />

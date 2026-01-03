@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Header.module.css';
 import { HeaderDesktop } from './Desktop/HeaderDesktop';
-import { HeaderMobile } from './Mobile/HeaderMobile';
-import Modal from '../Modal/Modal';
-import { AboutPage } from '@/pages/AboutPage/AboutPage';
-import { useDeviceDetection } from '@/shared/hooks/useDeviceDetection';
+import { HeaderMobile } from './Mobile/HeaderMobile'; 
+import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
+import clsx from 'clsx';
+import { AboutModal } from '@/features/about/AboutModal/AboutModal';
 
 export type NavKey =
     | 'home'
@@ -15,7 +15,7 @@ export type NavKey =
 const Header = () => {
     const navigate = useNavigate();
     const [aboutOpen, setAboutOpen] = useState(false);
-    const device = useDeviceDetection(1400);
+    const isMobile = useMediaQuery('(max-width: 1400px)');
 
     const handleNavigate = (key: NavKey) => {
         switch (key) {
@@ -32,38 +32,21 @@ const Header = () => {
                 break;
         }
     };
-
-    // TODO: change to pure CSS media styling
-    const modalProps = {
-        style: {
-            height: device === 'desktop' ? '85vh' : '70vh',
-            width: device === 'desktop' ? '50vw' : '95vw',
-        }
-    };
-
-    return (
+     
+    return ( 
         <>
             <nav className={styles.navbar}>
                 <div className={styles.container}>
-                    {device === 'desktop' ? <>
-                            <HeaderDesktop onNavigate={handleNavigate} />
-                            <h1 className={styles.title}>COCKTAIL EXPLORER - Frontend Performance & UX Demo</h1>
-                        </> :
-                        <>
-                            <HeaderMobile onNavigate={handleNavigate} />
-                            <h1 className={styles.title}>COCKTAIL EXPLORER</h1>
-                        </>}
-                        
+                    {isMobile ? <HeaderMobile onNavigate={handleNavigate} /> :
+                        <HeaderDesktop onNavigate={handleNavigate} />}
+                    <h2 className={clsx(styles.title, styles.shortTitle)}>COCKTAIL EXPLORER</h2>
+                    <h2 className={clsx(styles.title, styles.longTitle)}>COCKTAIL EXPLORER - Frontend Performance & UX Demo</h2>
                 </div>
             </nav>
 
-            <Modal
-                {...modalProps}
+            <AboutModal 
                 open={aboutOpen}
-                onClose={() => setAboutOpen(false)}
-                title={'About'}>
-                <AboutPage />
-            </Modal>
+                onClose={() => setAboutOpen(false)} />
         </>
     );
 };

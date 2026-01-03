@@ -1,6 +1,6 @@
-import styles from "./AboutPage.module.css";
+import styles from "./AboutModal.module.css";
 
-export const AboutPage = ()=> {
+export const AboutContent = () => {
 
     const features = [
         "UI performance and render optimization",
@@ -19,7 +19,7 @@ export const AboutPage = ()=> {
 
     return (
         <main className={styles.page}>
-            <header className={styles.header}> 
+            <header className={styles.header}>
 
                 <p className={styles.lede}>
                     This site hosts live frontend demonstrations created by{" "}

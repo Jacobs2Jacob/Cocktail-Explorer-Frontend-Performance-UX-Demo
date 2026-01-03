@@ -1,14 +1,16 @@
 import ReactDOM from 'react-dom';
 import styles from './Modal.module.css';
+import clsx from 'clsx';
 
 type ModalProps = {
     open: boolean;
     onClose: () => void;
     title?: string;
     children: React.ReactNode;
-} & React.HTMLAttributes<HTMLDivElement>
+    className?: string;
+}
 
-const Modal = ({ open, onClose, title, children, ...props }: ModalProps) => {
+const Modal = ({ open, onClose, title, children, className }: ModalProps) => {
 
     const modalRoot = document.getElementById('modal-root')!;
      
@@ -18,7 +20,7 @@ const Modal = ({ open, onClose, title, children, ...props }: ModalProps) => {
 
     const modalContent = (
         <div className={styles.backdrop} onClick={onClose} aria-modal="true" role="dialog">
-            <div {...props} className={styles.panel} onClick={(e) => e.stopPropagation()}>
+            <div className={clsx(styles.panel, className)} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.header}>
                     <h2 className={styles.title}>{title ?? 'Modal'}</h2>
                     <label onClick={onClose} aria-label="Close" className={styles.close}>

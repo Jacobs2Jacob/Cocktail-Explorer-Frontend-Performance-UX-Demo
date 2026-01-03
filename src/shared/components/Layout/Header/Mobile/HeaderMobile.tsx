@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styles from './HeaderMobile.module.css'; 
 import { NavKey } from '../Header';
+import clsx from 'clsx';
 
 interface HeaderMobileProps {
     onNavigate: (item: NavKey) => void;
@@ -26,7 +27,7 @@ export const HeaderMobile = ({ onNavigate } :HeaderMobileProps) => {
             </button>
                       
             {/* dropdown */}
-            <div className={`${styles.mobileMenu} ${menuOpen ? styles.open : '' }`}>
+            <div className={clsx(styles.mobileMenu, menuOpen && styles.open)}>
                 <button onClick={() => handleNavigate('home')}
                         className={styles.navButton}>
                             Home

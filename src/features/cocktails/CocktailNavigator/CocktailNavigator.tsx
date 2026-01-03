@@ -5,7 +5,7 @@ import { useCocktailQueryByName } from '@/entities/cocktails/hooks/useCocktailQu
 import { mapToCarouselItem } from '@/entities/cocktails/utils/mapToCarouselItem';
 import Carousel from '@/shared/components/Carousel/Carousel';
 import { useDebounce } from '@/shared/hooks/useDebounce';
-import { useDeviceDetection } from '@/shared/hooks/useDeviceDetection'; 
+import { useMediaQuery } from '@/shared/hooks/useMediaQuery';
 
 interface CocktailNavigatorProps {
     searchValue: string;
@@ -13,7 +13,7 @@ interface CocktailNavigatorProps {
  
 const CocktailNavigator = (props: CocktailNavigatorProps) => {
     const debouncedQuery = useDebounce(props.searchValue, 250);
-    const device = useDeviceDetection(1200);
+    const isMobile = useMediaQuery('(max-width: 1200px)');
 
     const {
         items,
@@ -50,7 +50,7 @@ const CocktailNavigator = (props: CocktailNavigatorProps) => {
     return (
         <div className={styles.navigatorContainer}>
             <Carousel
-                direction={device === 'desktop' ? 'horizontal' : 'vertical'}
+                direction={isMobile ? 'vertical' : 'horizontal'}
                 items={showingItems}
                 onReachEnd={onReachEndHandler}
                 fetching={isInitialLoading || searchLoading || isFetchingNextPage}

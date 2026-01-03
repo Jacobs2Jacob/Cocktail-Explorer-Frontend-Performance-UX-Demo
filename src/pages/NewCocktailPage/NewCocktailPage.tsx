@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { ReactNode, useState } from 'react';
 import Modal from '@/shared/components/Layout/Modal/Modal';
 import { useStorageCocktails } from '@/entities/cocktails/hooks/useStorageCocktails';
-import { useDeviceDetection } from '@/shared/hooks/useDeviceDetection';
+import clsx from 'clsx';
 
 const NewCocktailPage = () => {
     const { addCocktail } = useStorageCocktails();  
@@ -13,7 +13,6 @@ const NewCocktailPage = () => {
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState('');
     const [modalContent, setModalContent] = useState<ReactNode>(null);
-    const device = useDeviceDetection(680);
      
     const handleOnSubmit = (data: Cocktail) => {
         const addedCocktail = addCocktail(data);
@@ -30,7 +29,7 @@ const NewCocktailPage = () => {
                                 setOpen(false);
                                 navigate('/');
                             }}
-                            className={`btn-blue ${styles.modalBtn}`}>
+                            className={clsx('btn-blue', styles.modalBtn)}>
                             Back to Home Page
                         </button>
                     </div>
@@ -46,7 +45,7 @@ const NewCocktailPage = () => {
                         <button
                             type='button'
                             onClick={() => setOpen(false)}
-                            className={`btn-blue ${styles.modalBtn}`}>
+                            className={clsx('btn-blue', styles.modalBtn)}>
                             Close
                         </button>
                     </div>
@@ -57,21 +56,12 @@ const NewCocktailPage = () => {
         setOpen(true);
     };
 
-    // TODO: change to pure CSS media styling
-    const modalProps = {
-        style: {
-            height: '25vh',
-            top: '12vh',
-            width: device === 'desktop' ? '30vw' : '80vw',
-        }
-    }
-
     return (
         <div className={styles.pageContainer}>
             <h1>Add a New Cocktail</h1>
             <NewCocktailForm onSubmit={handleOnSubmit} />
             <Modal
-                {...modalProps}
+                className={styles.confirmationModal}
                 open={open}
                 onClose={() => setOpen(false)}
                 title={title}>
