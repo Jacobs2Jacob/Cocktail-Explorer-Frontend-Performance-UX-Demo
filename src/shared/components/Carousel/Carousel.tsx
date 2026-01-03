@@ -31,7 +31,7 @@ const Carousel = ({
 
     const isEmpty = items.length === 0;
     const showLoader = fetching && isEmpty;
-    const showEmpty = !fetching && isEmpty;
+    const showEmpty = !initialLoad && !fetching && isEmpty;
 
     return (
 
@@ -43,14 +43,14 @@ const Carousel = ({
 
             <div className={styles.carouselWrapper}>
 
-                {showEmpty && (
-                    <EmptyState message={'No results found...'} />
-                )}
-
                 {initialLoad && (
                     <CarouselSkeleton direction={direction} />
                 )}
 
+                {showEmpty && (
+                    <EmptyState message={'No results found...'} />
+                )}
+                 
                 {items.length > 0 && <>
                     {direction === 'horizontal' ? (
                         <HorizontalVirtualizedScroll
