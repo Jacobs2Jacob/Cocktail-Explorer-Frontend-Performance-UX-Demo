@@ -26,4 +26,6 @@ dist-ssr
 /obj/Debug
 /.vs/PortfolioSite
 *.esproj
+*.esproj.user
 /nuget.config
+/CHANGELOG.md
