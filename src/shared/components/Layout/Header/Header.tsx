@@ -45,10 +45,15 @@ const Header = () => {
         <>
             <nav className={styles.navbar}>
                 <div className={styles.container}>
-                    {device === 'desktop' ? <HeaderDesktop onNavigate={handleNavigate} /> :
-                                            <HeaderMobile onNavigate={handleNavigate} />}
-
-                    <h1 className={styles.title}>COCKTAIL GALLERY</h1>
+                    {device === 'desktop' ? <>
+                            <HeaderDesktop onNavigate={handleNavigate} />
+                            <h1 className={styles.title}>COCKTAIL EXPLORER - Frontend Performance & UX Demo</h1>
+                        </> :
+                        <>
+                            <HeaderMobile onNavigate={handleNavigate} />
+                            <h1 className={styles.title}>COCKTAIL EXPLORER</h1>
+                        </>}
+                        
                 </div>
             </nav>
 
