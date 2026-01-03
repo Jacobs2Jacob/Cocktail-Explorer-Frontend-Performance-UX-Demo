@@ -2,16 +2,14 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'; 
 import styles from './CocktailDetailPage.module.css'; 
 import { Cocktail } from '@/entities/cocktails/types'; 
-import { useCocktailById } from '@/entities/cocktails/hooks/useCocktailById';
-import CocktailDetailPageSkeleton from './CocktailDetailPageSkeleton';
+import { useCocktailById } from '@/entities/cocktails/hooks/useCocktailById'; 
 
 const CocktailDetailPage = () => {
     const { id } = useParams();
     const [cocktail, setCocktail] = useState<Cocktail>();
     const {
         data,
-        error,
-        isLoading
+        error, 
     } = useCocktailById({ id: id ?? '', dataSource: id?.startsWith('user-') ? 'storage' : 'api' });
 
     useEffect(() => {
@@ -19,12 +17,7 @@ const CocktailDetailPage = () => {
             setCocktail(data);
         }
     }, [data])
-
-    // loader indication
-    if (isLoading) {
-        return <CocktailDetailPageSkeleton />;
-    }
-
+      
     // error indication
     if (error) {
         return <p className={styles.error}>Cocktail not found.</p>;
@@ -44,6 +37,7 @@ const CocktailDetailPage = () => {
                 <h2 style={{ marginTop: '25px' }}>Ingredients</h2>
                 <ul>
                     {cocktail.ingredients
+                        // filter out undefined ingredients
                         ?.filter((item): item is { ingredient: string; measure: string } => Boolean(item && item.ingredient))
                         .map((item) => (
                             <li key={item.ingredient}>

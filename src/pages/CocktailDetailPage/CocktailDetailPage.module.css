@@ -45,72 +45,7 @@ li {
     display: flex;
     flex-direction: column;
 }
-
-.skeletonContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    margin: auto 0 auto 50%;
-    transform: translateX(-50%);
-}
-
-.skeletonShimmer {
-    background: linear-gradient(90deg, #f5f5f5 25%, #e8e8e8 37%, #f5f5f5 63%);
-    background-size: 400% 100%;
-    animation: shimmer 1.4s ease-in-out infinite;
-    border-radius: 12px;
-}
-
-.skeletonTitle {
-    width: 60%;
-    height: 32px;
-    margin: 0 auto;
-    border-radius: 12px;
-}
-
-.skeletonImage {
-    width: 100%;
-    max-width: 380px;
-    height: 230px;
-    margin: 0 auto;
-    border-radius: 12px;
-}
-
-.skeletonHeading {
-    width: 40%;
-    height: 22px;
-    margin-bottom: 1rem;
-}
-
-.skeletonList,
-.skeletonParagraph {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-}
-
-.skeletonLine {
-    height: 14px;
-    width: 100%;
-}
-
-.skeletonLine:nth-child(2n) {
-    width: 75%;
-}
-
-.skeletonLine:nth-child(3n) {
-    width: 60%;
-}
-
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
-
+  
 @media (max-width: 600px) {
     .image {
         max-width: 200px;
