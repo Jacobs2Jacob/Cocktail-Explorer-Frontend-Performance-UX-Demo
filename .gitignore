@@ -25,3 +25,4 @@ dist-ssr
 /.vs/YanivPortfolio
 /obj/Debug
 /.vs/PortfolioSite
+/nuget.config
