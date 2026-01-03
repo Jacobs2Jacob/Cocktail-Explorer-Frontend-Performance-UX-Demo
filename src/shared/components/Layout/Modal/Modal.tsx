@@ -9,6 +9,7 @@ type ModalProps = {
 };
 
 const Modal = ({ open, onClose, title, children }: ModalProps) => {
+
     const modalRoot = document.getElementById('modal-root')!;
      
     if (!open) {

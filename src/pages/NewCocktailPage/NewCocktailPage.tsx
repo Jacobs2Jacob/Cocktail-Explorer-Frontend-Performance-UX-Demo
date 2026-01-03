@@ -3,7 +3,7 @@ import NewCocktailForm from '@/features/cocktails/NewCocktailForm/NewCocktailFor
 import { Cocktail } from '@/entities/cocktails/types';   
 import { useNavigate } from 'react-router-dom'; 
 import { ReactNode, useState } from 'react';
-import Modal from '@/shared/components/Modal/Modal';
+import Modal from '@/shared/components/Layout/Modal/Modal';
 import { useStorageCocktails } from '@/entities/cocktails/hooks/useStorageCocktails';
 
 const NewCocktailPage = () => {

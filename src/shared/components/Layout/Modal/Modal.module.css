@@ -25,8 +25,8 @@
 }
 
 .title {
-    font-size: 1rem;
-    margin: 0;
+    font-size: 1.2rem;
+    margin: auto;
 }
 
 .close {
@@ -39,4 +39,10 @@
 .body {
     padding: 1rem;
 }
- 
+
+
+@media only screen and (max-width: 600px) {
+    .panel { 
+        max-height: 60vh; 
+    }
+}
