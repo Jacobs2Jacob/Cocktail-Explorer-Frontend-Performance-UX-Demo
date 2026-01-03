@@ -15,7 +15,7 @@ export type NavKey =
 const Header = () => {
     const navigate = useNavigate();
     const [aboutOpen, setAboutOpen] = useState(false);
-    const device = useDeviceDetection(1000);
+    const device = useDeviceDetection(1400);
 
     const handleNavigate = (key: NavKey) => {
         switch (key) {
