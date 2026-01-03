@@ -7,11 +7,13 @@ import HorizontalVirtualizedScroll from '../VirtualizedScrollContainer/horizonta
 import VerticalVirtualizedScroll from '../VirtualizedScrollContainer/vertical/VerticalVirtualizedScroll';
 import { EmptyState } from '../ErrorStates/EmptyState';
 import CarouselSkeleton from './CarouselSkeleton';
+import Loader from '../Layout/Loader/Loader';
 
 interface CarouselProps {
     items: CarouselItem[];
     onReachEnd: () => void;
     fetching: boolean; 
+    initialLoad?: boolean;
     direction?: Direction;
 }
 
@@ -19,43 +21,55 @@ const Carousel = ({
     items,
     onReachEnd,
     fetching,
+    initialLoad,
     direction = 'horizontal'
 }: CarouselProps) => {
 
     const renderItem = useCallback((item: CarouselItem) => {
         return <CarouselCard key={item.id} item={item} />
     }, []);
-      
+
+    const isEmpty = items.length === 0;
+    const showLoader = fetching && isEmpty;
+    const showEmpty = !fetching && isEmpty;
+
     return (
-        <div className={styles.carouselWrapper}>
 
-            {!fetching && items.length === 0 && (
-                <EmptyState message={'No results found...'} />
-            )}
-
+        <>
             {/* Item.length === 0 so it would be seen on search and not on navigation */}
-            {fetching && items.length === 0 && (
-                <CarouselSkeleton direction={direction} />
+            {showLoader && (
+                <Loader />
             )}
 
-            {items.length > 0 && <>
-                {direction === 'horizontal' ? (
-                    <HorizontalVirtualizedScroll
-                        items={items}
-                        renderItem={renderItem}
-                        onScrollEnd={onReachEnd}
-                        isLoading={fetching}
-                    />
-                ) : (
-                    <VerticalVirtualizedScroll
-                        items={items}
-                        renderItem={renderItem}
-                        onScrollEnd={onReachEnd}
-                            isLoading={fetching}
-                    />
+            <div className={styles.carouselWrapper}>
+
+                {showEmpty && (
+                    <EmptyState message={'No results found...'} />
                 )}
-            </>} 
-        </div>
+
+                {initialLoad && (
+                    <CarouselSkeleton direction={direction} />
+                )}
+
+                {items.length > 0 && <>
+                    {direction === 'horizontal' ? (
+                        <HorizontalVirtualizedScroll
+                            items={items}
+                            renderItem={renderItem}
+                            onScrollEnd={onReachEnd}
+                            isLoading={fetching}
+                        />
+                    ) : (
+                        <VerticalVirtualizedScroll
+                            items={items}
+                            renderItem={renderItem}
+                            onScrollEnd={onReachEnd}
+                            isLoading={fetching}
+                        />
+                    )}
+                </>}
+            </div>
+        </>
     );
 };
 

@@ -22,7 +22,7 @@ const Modal = ({ open, onClose, title, children, className }: ModalProps) => {
         <div className={styles.backdrop} onClick={onClose} aria-modal="true" role="dialog">
             <div className={clsx(styles.panel, className)} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.header}>
-                    <h2 className={styles.title}>{title ?? 'Modal'}</h2>
+                    <h2 className={styles.title}>{title}</h2>
                     <label onClick={onClose} aria-label="Close" className={styles.close}>
                         x
                     </label>

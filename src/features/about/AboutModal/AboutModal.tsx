@@ -11,8 +11,7 @@ export const AboutModal = ({ onClose, open }: AboutModalProps) => {
     return <Modal
         open={open}
         onClose={onClose}
-        className={styles.aboutModal}
-        title={'About'}>
+        className={styles.aboutModal}>
         <AboutContent />
     </Modal>
 }

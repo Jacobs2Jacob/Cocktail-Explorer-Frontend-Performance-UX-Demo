@@ -20,6 +20,7 @@ export const AboutContent = () => {
     return (
         <main className={styles.page}>
             <header className={styles.header}>
+            <h1>About</h1>
 
                 <p className={styles.lede}>
                     This site hosts live frontend demonstrations created by{" "}
