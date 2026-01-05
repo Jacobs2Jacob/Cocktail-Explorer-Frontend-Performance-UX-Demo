@@ -19,8 +19,8 @@
 
 .itemContainer {
     display: flex;
-    position: absolute;
-    width: 100%;
-    justify-content: center;
-    gap: 10px; 
+    position: absolute;  
+    justify-content: flex-start;
+    gap: 13px;  
+    width: 100%; 
 } 

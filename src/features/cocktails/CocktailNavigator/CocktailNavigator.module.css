@@ -18,6 +18,6 @@
 @media (max-width: 1200px) {
     .navigatorContainer {
         width: 100%; 
-        margin: auto;
+        margin: 0 auto auto auto;
     }
 }

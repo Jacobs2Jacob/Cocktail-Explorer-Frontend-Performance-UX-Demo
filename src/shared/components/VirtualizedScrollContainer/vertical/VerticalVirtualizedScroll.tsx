@@ -16,7 +16,7 @@ const VerticalVirtualizedScroll = <T,>({
     estimateSize = DEFAULT_ITEM_HEIGHT,
 }: VirtualizedScrollProps<T>) => {
 
-    const { containerRef, width: containerWidth } = useContainerWidth(); 
+    const { containerRef, width: containerWidth } = useContainerWidth();  
     const itemsPerRow = Math.max(1, Math.floor(containerWidth / MIN_ITEM_WIDTH));
 
     // Group items into rows  based on virtualization one dimentional requirements
@@ -44,6 +44,12 @@ const VerticalVirtualizedScroll = <T,>({
         scrollByOffsetSize: (el) => el.offsetHeight,
     });
 
+    // center flex items by calculating left padding depends on container width change  
+    const getLeftPadding = () => {  
+        const rowWidth = itemsPerRow * MIN_ITEM_WIDTH;
+        return Math.max(0, (containerWidth - rowWidth) / 2);
+    }
+
     return (
         <div ref={containerRef} className={styles.wrapper}>
             <div
@@ -58,19 +64,22 @@ const VerticalVirtualizedScroll = <T,>({
                         position: 'relative',
                     }}
                 >
-                    {virtualizer.getVirtualItems().map((virtualRow) => (
-                        <div data-index={virtualRow.index}
+                    {virtualizer.getVirtualItems().map((virtualRow) => {
+                        const paddingLeft = getLeftPadding();
+
+                        return <div data-index={virtualRow.index}
                              key={virtualRow.key}
                              className={styles.itemContainer}
                              style={{ 
                                 top: virtualRow.start,  
-                                height: virtualRow.size
+                                height: virtualRow.size,
+                                paddingLeft
                              }}>
                             {rows[virtualRow.index].map((item, idx) =>
                                 renderItem(item, virtualRow.index * itemsPerRow + idx)
                             )}
                         </div> 
-                    ))}
+                    })}
                 </div>
             </div>
         </div>
