@@ -15,6 +15,9 @@ The domain was intentionally kept simple to highlight frontend execution quality
 **-FSD (Feature-Sliced Design):**  
 A scalable and maintainable architecture that clearly separates feature-level components from shared and reusable UI elements, enabling predictable growth and long-term maintainability.  
   
+**-ESLint Import Boundaries**  
+Helps maintain a scalable FSD architecture by automatically blocking imports that break layer boundaries, instead of relying on conventions or code reviews.
+  
 **-Smart Routes:**  
 Prepared infrastructure for future route-based feature expansion, improving scalability and separation of concerns.  
   
