@@ -5,20 +5,23 @@ export const useContainerWidth = () => {
     const [width, setWidth] = useState(0);
 
     useLayoutEffect(() => {
+        
         if (!containerRef.current) {
             return;
         }
+
+        const refObject = containerRef.current;
 
         const observer = new ResizeObserver(([entry]) => {
             setWidth(entry.contentRect.width);
         });
 
-        observer.observe(containerRef.current);
+        observer.observe(refObject);
 
         // unmount
         return () => {
-            if (containerRef.current) {
-                observer.unobserve(containerRef.current);
+            if (refObject) {
+                observer.unobserve(refObject);
             }
         };
     }, []);

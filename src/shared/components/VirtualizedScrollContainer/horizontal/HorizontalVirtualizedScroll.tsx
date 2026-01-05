@@ -55,9 +55,8 @@ const HorizontalVirtualizedScroll = <T,>({
     // Initial scroll state update
     useEffect(() => {
         handleScroll();
-    }, [items]);
-
-
+    }, [handleScroll]);
+ 
     // Handle wheel event to scroll horizontally
     const onWheel = (e: WheelEvent<HTMLDivElement>) => {
         const el = scrollRef.current;
