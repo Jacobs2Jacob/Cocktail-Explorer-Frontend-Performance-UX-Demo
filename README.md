@@ -34,8 +34,9 @@ Scoped and maintainable styling approach, ensuring predictable UI behavior and a
 Strong type safety across the application, improving consistency, reliability, and developer experience.  
   
 **-Error Handling:**  
-	•	ErrorBoundary for graceful UI fallbacks on rendering failures
-	•	Local try/catch handling for async and state-level error management
+Network: Interceptor -> Middleware -> Component -> UI  
+Local: Hook -> Component -> UI  
+Render: Error boundary -> UI  
   
 **-Skeletons:**  
 Used as loading indicators to improve perceived performance and maintain visual continuity during async operations.  
