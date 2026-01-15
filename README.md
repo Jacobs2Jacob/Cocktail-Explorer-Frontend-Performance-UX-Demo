@@ -8,8 +8,9 @@ Live demo hosted at https://yanivjacob.com as a frontend showcase.
 • A responsive Single Page Application built with React and TypeScript, designed to explore, create, and search cocktails through a smooth, performance-focused UI.  
   
 • The application emphasizes responsive layouts, dynamic scrolling behavior, efficient rendering of large datasets, and consistent UX feedback across loading, error, and interaction states.    
+
 • The domain was intentionally kept simple to highlight frontend execution quality, performance, and usability rather than product complexity.  
-  
+    
 **Architectural Decisions**  
   
 **FSD (Feature-Sliced Design):**  
